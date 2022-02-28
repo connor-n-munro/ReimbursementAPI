@@ -1,0 +1,32 @@
+version: "3.1"
+
+services:
+  whateverIwant:
+    image: ubuntu:latest
+    restart: always
+    container_name: webapp
+    ports:
+      - '8080:8080'
+    depends_on:
+      - postgres
+    environment:
+      - DB_URL=jdbc:postgresql://postgres:5432/postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=Opklnm98!
+
+
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Opklnm98!
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    container_name: postgres_container
+    volumes:
+      - pgdata:/var/lib/postgresql/data/pgdata
+volumes:
+  pgdata:
+    driver: local
